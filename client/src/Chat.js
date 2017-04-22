@@ -15,7 +15,7 @@ const styles = {
         overflow: 'hidden'
     },
     contentArea: {
-        width: '85%',
+        width: '100%',
         
     },
     chatAndUsers: {
@@ -27,13 +27,13 @@ const styles = {
         width: '100%',
         display: 'flex',
         flexDirection: 'column-reverse',
-        backgroundColor: '#d9d9d9'
+        backgroundColor: '#F2F2F2'
     },
     messageArea: {
         overflow: 'hidden',
         display: 'flex',
-        justifyContent: 'flex-end',
-        textAlign: 'right'
+        justifyContent: 'flex-start',
+        textAlign: 'left'
     },
     messageList: {
         margin: '0px',
@@ -44,12 +44,24 @@ const styles = {
         display: 'flex',
         flexDirection: 'column'
     },
+    messageTimeStamp: {
+        display: 'block',
+        fontSize: '9px',
+        margin: '4px 6px',
+        position: 'relative',
+        top: '4px',
+        color: 'rgba(53,53,53,0.4)'
+    },
     username: {
-        margin: '0px',
-        fontSize: '14px'
+        margin: '0',
+        fontSize: '14px',
+        fontWeight: 'bold',
+        marginRight: '2px',
+        marginBottom: '2px',
+        color: 'rgba(53,53,53,0.8)'
     },
     userPanel: {
-        display:'none',
+        display:'block',
         height: '80vh',
         width: '20%',
         backgroundColor: '#d8dbe2',
@@ -57,12 +69,11 @@ const styles = {
     },
     form: {
         width: '100%',
-        minWidth: '415px',
         padding: '10px',
         backgroundColor: '#ffffff',
     },
     input: {
-        width: '100%',
+        width: '99.9%',
         height: '35px',
         border: 'none',
         outline: 'none',
@@ -77,9 +88,14 @@ const styles = {
     },
     messageData: {
         display: 'flex',
-        flexDirection: 'row'
+        flexDirection: 'row',
+        justifyContent: 'flex-start',
+        maxWidth: '85vh',
+        flexWrap: 'wrap'
     }
 }
+
+var fontClass = 'userMessageSan'
 
 class Chat extends Component {
   constructor() {
@@ -87,6 +103,10 @@ class Chat extends Component {
     this.state = {
       message: ''
     }
+  }
+
+  componentWillMount() {
+      console.log(this.props)
   }
 
   handleChange = (e) => {
@@ -102,12 +122,19 @@ class Chat extends Component {
       message:''
     })
   }
+
+  toggleFont() {
+      if(fontClass === 'userMessageSan'){
+          fontClass = 'userMessageSerif'
+      } else if(fontClass === 'userMessageSerif'){
+          fontClass = 'userMessageSan'
+      }
+  }
   
   render() {
     return (
         <div style={styles.container}>
-            <NavBar />
-
+                <NavBar />
             <div style={styles.contentArea}>
                 <HeadBar />
 
@@ -126,9 +153,9 @@ class Chat extends Component {
                                         <div style={styles.messageContents}>
                                             <p style={styles.username}>{message.username}</p>
 
-                                            <div>                                
-                                                <div className="messageTimeStamp">{message.time}</div>
-                                                <div className="userMessage">{message.message}</div>
+                                            <div style={styles.messageData}>                             
+                                                <div className="userMessage">{message.message}</div>   
+                                                <div style={styles.messageTimeStamp}>{message.time}</div>
                                             </div>
                                         </div>
                                     </li>
@@ -136,8 +163,7 @@ class Chat extends Component {
                             </ul>
                         </div>
                     </section>
-
-                    <UserPanel />
+                    
                 </div>
             </div>
         </div>

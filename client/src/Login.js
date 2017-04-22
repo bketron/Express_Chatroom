@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 
 const styles = {
     container: {
-        backgroundColor: '#222',
+        backgroundColor: '#0A2342',
         height: '100vh',
         padding: '250px 0 0 0'
     },
@@ -12,23 +12,40 @@ const styles = {
         margin: 'auto',
         display: 'flex',
         flexDirection: 'column',
+        backgroundColor: 'white',
+        width: '40%',
+        height: '30vh'
+    },
+    usernameContainer: {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        verticalAlign: 'middle',
+        marginTop: '30px'
+    },
+    username: {
+        fontSize: '17px',
+        color: '#535353',
+        margin: 0,
+        padding: 0,
+        lineHeight: '30px'
     },
     input: {
-        margin: 'auto',
-        width: '35%',
         border: 'none',
         outline: 'none',
-        borderBottom: '2px solid white',
+        border: '1px solid #535353',
         background: 'none',
         fontSize: '25px',
+        height: '30px',
         fontWeight: 'lighter',
         color: 'white',
         textTransform: 'lowercase',
-        marginBottom: '15px',
-        textAlign: 'center'
+        textAlign: 'center',
+        width: '60%',
+        marginLeft: '20px'
     },
     button: {
-        width: '5%',
+        width: '10vh',
         height: '25px',
         margin: 'auto',
         background: 'none',
@@ -90,7 +107,10 @@ class Login extends Component{
         return (
             <div style={styles.container}>
                 <form style={styles.form} onSubmit={this.handleSubmit}>
-                    <input style={styles.input} onChange={this.handleChange} type="text" id="loginName" name="username" value={this.state.username} placeholder="Username..." maxLength="15" autoComplete="off"/>
+                    <div style={styles.usernameContainer}>
+                        <p style={styles.username}>Username</p>
+                        <input style={styles.input} onChange={this.handleChange} type="text" id="loginName" name="username" value={this.state.username} placeholder="Username..." maxLength="15" autoComplete="off"/>
+                    </div>
                     <button style={styles.button} type="submit">Login</button>
                 </form>
             </div>

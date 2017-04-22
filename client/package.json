@@ -11,7 +11,8 @@
     "react-redux": "^5.0.4",
     "react-router-dom": "next",
     "redux": "^3.6.0",
-    "socket.io-client": "^1.7.3"
+    "socket.io-client": "^1.7.3",
+    "material-ui": "^0.17.3"
   },
   "devDependencies": {
     "react-scripts": "0.9.5"

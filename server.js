@@ -20,12 +20,12 @@ app.get("*", function(req, res){
 // })
 
 const users = []
-messages = []
+const messages = []
 var numUsers = 0
 
 io.on('connection', function(socket){
     numUsers ++
-    console.log(numUsers)
+    console.log(messages)
     socket.on('addMessage', function(message){
         var id = socket.client.conn.id
         var username = ""
@@ -76,16 +76,15 @@ io.on('connection', function(socket){
         if(messages.length >= 2) {
             console.log(currentMessage)
             console.log(lastMessage)
-
-            if(currentMessage.username === lastMessage.username && currentMessage.username !== undefined){
+        
+        if(currentMessage.username !== ''){
+            if(currentMessage.username === lastMessage.username){
                 io.emit('newMessage', {
                     message: message,
                     id: id,
                     time: timeStamp
                 })
-            }
-
-            if(currentMessage.username !== lastMessage.username){
+            } else if(currentMessage.username !== lastMessage.username){
                 io.emit('newMessage', {
                     message: message,
                     id: id,
@@ -93,15 +92,19 @@ io.on('connection', function(socket){
                     time: timeStamp
                 })
             }
-        } else {
+
+        }
+    } else if(messages.length < 2){
+        if(currentMessage.username !== '' && currentMessage.message !== ''){
             io.emit('newMessage', {
                 message: message,
                 id: id,
                 username: username,
                 time: timeStamp
             })
-        }
-    })
+        }   
+    }
+})
     socket.on('addUser', function(username){
         for(var i=0; i<users.length; i++){
             if(users[i] === socket.client.conn.id){
@@ -118,6 +121,7 @@ io.on('connection', function(socket){
 })
 
 io.on('reconnect', function(){
+    var doesExist = false
     if(username){
         io.emit('addUser', username)
     }

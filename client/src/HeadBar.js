@@ -68,7 +68,8 @@ const styles = {
         marginRight: '15px',
         lineHeight: '15px',
         position: 'relative',
-        top: '-1px'
+        top: '-1px',
+        cursor: 'pointer'
     },
     signout: {
         margin: 0,
@@ -81,7 +82,22 @@ const styles = {
         marginRight: '15px',
         lineHeight: '15px',
         position: 'relative',
-        top: '-1px'
+        top: '-1px',
+        cursor: 'pointer'
+    },
+    settings: {
+        margin: 0,
+        fontSize: '12px',
+        lineHeight: '15px'
+    },
+    settingsIcon: {
+        color: 'rgba(53,53,53,0.9)',
+        fontSize: '19px',
+        marginRight: '15px',
+        lineHeight: '15px',
+        position: 'relative',
+        top: '-1px',
+        cursor: 'pointer'
     }
 }
 
@@ -105,6 +121,7 @@ class HeadBar extends Component {
                     <section style={styles.functions}>
                         <div style={styles.buttons}>
                             <p style={styles.timeStamp}><i style={styles.timeStampIcon} className="fa fa-bars" aria-hidden="true"></i></p>
+                            <p style={styles.settings}><i style={styles.settingsIcon} className="fa fa-cog" aria-hidden="true"></i></p>
                             <p style={styles.signout}><i style={styles.signoutIcon} className="fa fa-sign-out" aria-hidden="true"></i></p>
                         </div>
                     </section>
