@@ -3,7 +3,6 @@ import { addMessage } from './api/messaging'
 import { connect } from 'react-redux'
 import HeadBar from './HeadBar'
 import NavBar from './NavBar'
-import UserPanel from './UserPanel'
 
 const styles = {
     container: {
@@ -36,7 +35,6 @@ const styles = {
         textAlign: 'left'
     },
     messageList: {
-        margin: '0px',
         float: 'right',
         margin: '15px 20px'
     },
@@ -75,11 +73,9 @@ const styles = {
     input: {
         width: '99.9%',
         height: '35px',
-        border: 'none',
         outline: 'none',
         padding: '0 10px',
         margin: '0 5px 0 0',
-        fontSize: '12px',
         borderRadius: '4px',
         background: 'none',
         border: '1px solid rgba(53,53,53,0.5',
@@ -95,18 +91,12 @@ const styles = {
     }
 }
 
-var fontClass = 'userMessageSan'
-
 class Chat extends Component {
   constructor() {
     super()
     this.state = {
       message: ''
     }
-  }
-
-  componentWillMount() {
-      console.log(this.props)
   }
 
   handleChange = (e) => {
@@ -121,14 +111,6 @@ class Chat extends Component {
     this.setState({
       message:''
     })
-  }
-
-  toggleFont() {
-      if(fontClass === 'userMessageSan'){
-          fontClass = 'userMessageSerif'
-      } else if(fontClass === 'userMessageSerif'){
-          fontClass = 'userMessageSan'
-      }
   }
   
   render() {

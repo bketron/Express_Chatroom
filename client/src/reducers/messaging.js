@@ -1,18 +1,14 @@
 const initialState = {
     messages: [],
-    message: {},
     users: []
 }
 
 export default function messageReducer(state=initialState, action) {
     switch (action.type) {
         case 'ADD_MESSAGE':
-            console.log(action)
-            console.log(state.messages)
-            return {...state, messages: [...state.messages, action.data]}
+            return {...state, messages: [...state.messages, action.message]}
         case 'ADD_USER':
-            console.log(action)
-            return {...state, users: [...state.users, action.username]}
+        	return {...state, users: [...state.users, action.user]}
         default:
             return state
     }

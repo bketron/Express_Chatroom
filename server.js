@@ -18,18 +18,15 @@ app.get("*", function(req, res){
 //         "foo":"bar"
 //     })
 // })
-
 const users = []
 const messages = []
-var numUsers = 0
 
 io.on('connection', function(socket){
-    numUsers ++
-    console.log(messages)
     socket.on('addMessage', function(message){
-        var id = socket.client.conn.id
-        var username = ""
-        var timeStamp = new Date()
+    	var id = socket.client.conn.id
+    	var username = ''
+    	var userMessage = {}
+    	var timeStamp = new Date()
         var min = timeStamp.getMinutes()
         var hour = timeStamp.getHours()
         var sec = timeStamp.getSeconds()
@@ -55,93 +52,56 @@ io.on('connection', function(socket){
 
         timeStamp = hour + ':' + min + ':' + sec + ' ' + suffix
 
-        for(var i=0; i<users.length; i++) {
+    	for(var i=0; i<users.length; i++) {
             if(users[i].id === id){
                 username = users[i].username
             }
         }
 
-        messages.push({
-            message: message,
-            id: socket.client.conn.id,
-            username: username,
-            time: timeStamp
-            
-        })
-
-        var currentMessage = messages[messages.length -1]
-        var lastMessage = messages[messages.length - 2]
-
-        
-        if(messages.length >= 2) {
-            console.log(currentMessage)
-            console.log(lastMessage)
-        
-        if(currentMessage.username !== ''){
-            if(currentMessage.username === lastMessage.username){
-                io.emit('newMessage', {
-                    message: message,
-                    id: id,
-                    time: timeStamp
-                })
-            } else if(currentMessage.username !== lastMessage.username){
-                io.emit('newMessage', {
-                    message: message,
-                    id: id,
-                    username: username,
-                    time: timeStamp
-                })
-            }
-
+        userMessage = {
+        	id: id,
+        	username: username,
+        	message: message,
+        	time: timeStamp
         }
-    } else if(messages.length < 2){
-        if(currentMessage.username !== '' && currentMessage.message !== ''){
-            io.emit('newMessage', {
-                message: message,
-                id: id,
-                username: username,
-                time: timeStamp
-            })
-        }   
-    }
-})
-    socket.on('addUser', function(username){
-        for(var i=0; i<users.length; i++){
-            if(users[i] === socket.client.conn.id){
-                users[i] = {
-                    username: username,
-                    id: users[i],
-                }
-            }
-        }
-        io.emit('newUser', username)
-        console.log(users)
+
+        messages.push(userMessage)
+
+        io.emit('newMessage', userMessage)
+
+
+        console.log(messages)
     })
 
-})
+    socket.on('addUser', function(username) {
+    	var doesExist = false
+    	var existsWhere = 0
+    	for(var i=0; i<users.length; i++){
+    		if (users[i].id === socket.client.conn.id){
+    			doesExist = true
+    			existsWhere = i
+    		}
+    	}
 
-io.on('reconnect', function(){
-    var doesExist = false
-    if(username){
-        io.emit('addUser', username)
-    }
-})
+    	if(doesExist === false){
+    		users.push({
+    			id: socket.client.conn.id,
+    			username: username
+    		})
 
-io.sockets.on('connection', function(socket){
-    var doesExist = false
+    		io.emit('newUser', {
+    			id: socket.client.conn.id,
+    			username: username
+    		})
+    	} else {
+    		users[existsWhere] = {
+    			id: socket.client.conn.id,
+    			username: username
+    		}
+    	}
 
-    for(var i=0; i<users.length; i++){
-        if(users[i] === socket.client.conn.id){
-            doesExist = true
-            sendFile(__dirname + '/client/src/App.js')
-        } 
-    }
-
-    if(doesExist === false){
-        users.push(socket.client.conn.id)
-    }
-
-    console.log(users)
+    	console.log(users)
+    })
 })
 
 server.listen(3001, function(){

@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { addUser } from './api/messaging'
-import { connect } from 'react-redux'
 
 const styles = {
     container: {
@@ -14,7 +13,8 @@ const styles = {
         flexDirection: 'column',
         backgroundColor: 'white',
         width: '40%',
-        height: '30vh'
+        height: '30vh',
+        
     },
     usernameContainer: {
         display: 'flex',
@@ -31,14 +31,13 @@ const styles = {
         lineHeight: '30px'
     },
     input: {
-        border: 'none',
         outline: 'none',
         border: '1px solid #535353',
         background: 'none',
         fontSize: '25px',
         height: '30px',
         fontWeight: 'lighter',
-        color: 'white',
+        color: 'black',
         textTransform: 'lowercase',
         textAlign: 'center',
         width: '60%',
@@ -82,7 +81,7 @@ class Login extends Component{
     constructor(props) {
         super()
         this.state = {
-            username: ""
+            username: ''
         }
     }
 
@@ -94,10 +93,11 @@ class Login extends Component{
 
     handleSubmit = (e) => {
         e.preventDefault()
+        console.log(this.state.username)
          addUser(this.state.username)
 
          this.setState({
-             username: ""
+             username: ''
          })
 
          this.props.history.push('/room')
