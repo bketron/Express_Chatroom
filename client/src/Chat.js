@@ -156,13 +156,13 @@ class Chat extends Component {
                                     <li key={'message' + i}>
                                         <div style={styles.messageContents}>
                                             <p style={{
-                                                color: this.props.user.color,
+                                                color: message.userColor,
                                                 margin: '0',
                                                 fontSize: '15px',
                                                 fontWeight: 'bold',
                                                 marginRight: '2px',
                                                 marginBottom: '2px'
-                                            }}>{this.props.user.username}</p>
+                                            }}>{message.username}</p>
 
                                             <div style={styles.messageData}>                             
                                                 <div style={{

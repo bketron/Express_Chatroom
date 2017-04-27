@@ -6,7 +6,7 @@ const styles = {
         padding: '0',
         display: 'flex',
         flexWrap: 'wrap',
-        width: '170px',
+        width: '164px',
         justifyContent: 'center',
         margin: 'auto'
     },

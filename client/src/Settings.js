@@ -19,7 +19,7 @@ const styles = {
     },
     mainHeading: {
         padding: '0',
-        margin: '15px 0',
+        margin: '15px 0 40px 0',
         fontSize: '18px',
         textAlign: 'center'
     },

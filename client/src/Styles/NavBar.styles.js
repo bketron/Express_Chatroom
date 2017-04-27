@@ -26,10 +26,11 @@ const styles = {
         top: '-2px'
     },
     channelsHeader: {
-        fontSize: '14px',
+        fontSize: '17px',
         color: 'white',
         fontWeight: 'bold',
-        marginTop: '50px',
+        marginTop: '15px',
+        marginBottom: '8px',
         textAlign: 'center'
     },
     divLine: {

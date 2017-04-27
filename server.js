@@ -18,14 +18,18 @@ app.get("*", function(req, res){
 //         "foo":"bar"
 //     })
 // })
-const users = []
-const messages = []
+const users = [{
+    id: '',
+    username: '',
+    color: ''
+}]
+var messages = []
 var numUsers = 0
+var username = ''
 
 io.on('connection', function(socket){
     socket.on('addMessage', function(message){
     	var id = socket.client.conn.id
-    	var username = ''
     	var userMessage = {}
     	var timeStamp = new Date()
         var min = timeStamp.getMinutes()
@@ -55,34 +59,54 @@ io.on('connection', function(socket){
 
     	for(var i=0; i<users.length; i++) {
             if(users[i].id === id){
-                username = users[i].username
+                io.emit('newMessage', {
+                    id: id,
+                    username: users[i].username,
+                    message: message,
+                    time: timeStamp,
+                    userColor: users[i].color
+                })
             }
         }
 
-        userMessage = {
-        	id: id,
-        	username: username,
-        	message: message,
-        	time: timeStamp
-        }
+
+        // userMessage = {
+        // 	id: id,
+        // 	username: username,
+        // 	message: message,
+        // 	time: timeStamp
+        // }
 
         messages.push(userMessage)
 
-        io.emit('newMessage', userMessage)
+        // io.emit('newMessage', userMessage)
 
-
-        console.log(messages)
     })
 
     socket.on('addUser', function(user) {
-        io.emit('login', user.username )
+        var doesExist = false
+
+        for(var i=0; i<users.length; i++){
+            if(users[i].id === socket.client.conn.id){
+                users[i].username === user.username
+                doesExist = true
+            }
+        }
+
+        if(doesExist === false) {
+            users.push({
+                id: socket.client.conn.id,
+                username: user.username,
+                color: user.userColor
+            })
+        }
+
         io.emit('newUser', {
             id: socket.client.conn.id,
             username: user.username,
             color: user.userColor
         })
 
-    	console.log(users)
     })
 })
 
