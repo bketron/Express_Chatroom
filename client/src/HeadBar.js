@@ -74,7 +74,10 @@ const styles = {
     signout: {
         margin: 0,
         fontSize: '12px',
-        lineHeight: '15px'
+        lineHeight: '15px',
+        background: 'none',
+        border: 'none',
+        outline: 'none'
     },
     signoutIcon: {
         color: '#353535',
@@ -102,6 +105,11 @@ const styles = {
 }
 
 class HeadBar extends Component {
+
+    handleSignOut(){
+        this.props.history.push('/')
+    }
+
     render() {
         return (
             <div style={styles.main}>
@@ -122,7 +130,7 @@ class HeadBar extends Component {
                         <div style={styles.buttons}>
                             <p style={styles.timeStamp}><i style={styles.timeStampIcon} className="fa fa-bars" aria-hidden="true"></i></p>
                             <p style={styles.settings}><i style={styles.settingsIcon} className="fa fa-cog" aria-hidden="true"></i></p>
-                            <p style={styles.signout}><i style={styles.signoutIcon} className="fa fa-sign-out" aria-hidden="true"></i></p>
+                            <a href="/" style={styles.signout}><i style={styles.signoutIcon} className="fa fa-sign-out" aria-hidden="true"></i></a>
                         </div>
                     </section>
                 </div>
