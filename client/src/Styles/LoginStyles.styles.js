@@ -5,7 +5,7 @@ const styles = {
     },
     title: {
         fontSize: '50px',
-        margin: '15px 0',
+        margin: '15px 0 0 0',
         padding: '0',
         textAlign: 'center',
         color: '#0C2C54',
@@ -24,6 +24,7 @@ const styles = {
     },
     usernameContainer: {
         display: 'flex',
+        flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
         verticalAlign: 'middle',
@@ -39,13 +40,15 @@ const styles = {
         textAlign: 'left',
         width: '60%',
         marginLeft: '20px',
-        marginTop: '0',
+        marginTop: '5px',
         paddingLeft: '10px'
     },
     loginButton: {
         width: '10vh',
         height: '25px',
         margin: 'auto',
+        marginTop: '14px',
+        marginBottom: '14px',
         background: 'none',
         color: '#353535',
         outline: 'none',
@@ -154,7 +157,7 @@ const styles = {
     colorDarkGrey:{
         width: '48px',
         height: '30px',
-        backgroundColor: '#12130F',
+        backgroundColor: '#BBBBBF',
         cursor: 'pointer',
         border: 'none',
         outline: 'none'

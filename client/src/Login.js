@@ -7,7 +7,8 @@ class Login extends Component{
         super()
         this.state = {
             username: '',
-            userColor: 'white'
+            password: '',
+            userColor: '#BBBBBF'
         }
     }
 
@@ -31,7 +32,8 @@ class Login extends Component{
          addUser(this.state)
          login(this.state.username)
          this.setState({
-             username: ''
+             username: '',
+             password: ''
          })
 
          this.props.history.push('/room')
@@ -42,7 +44,15 @@ class Login extends Component{
             <div style={styles.container}>
                 
                 <form style={styles.form} onSubmit={this.handleSubmit}>
-                    <p style={styles.title}>Login</p>
+                    <p style={{
+                        fontSize: '50px',
+                        margin: '15px 0 0 0',
+                        padding: '0',
+                        textAlign: 'center',
+                        color: this.state.userColor,
+                        fontWeight: '100',
+                        fontStyle: 'italic'
+                    }}>Chat</p>
 
                     <div>
                         <ul style={styles.colorList}>
@@ -80,16 +90,32 @@ class Login extends Component{
                                 <button type="button" onClick={this.handleColorSelect} name="9381FF" style={styles.colorPurple}></button>
                             </li>
                             <li style={styles.listItem}>
-                                <button type="button" onClick={this.handleColorSelect} name="12130F" style={styles.colorDarkGrey}></button>
+                                <button type="button" onClick={this.handleColorSelect} name="BBBBBF" style={styles.colorDarkGrey}></button>
                             </li>
                         </ul>
                     </div>
 
                     <div style={styles.usernameContainer}>
-                        <input style={styles.input} onChange={this.handleChange} type="text" id="loginName" name="username" value={this.state.username} placeholder="Username..." maxLength="15" autoComplete="off"/>
+                        <input style={styles.input} onChange={this.handleChange} type="text" id="loginName" name="username" value={this.state.username} placeholder="Username..." maxLength="15" autoComplete="off" />
+                        <input style={styles.input} onChange={this.handleChange} type="text" id="userPass" name="password" value={this.state.password} placeholder="Password..." autoComplete="off" />
                     </div>
 
-                    <button style={styles.loginButton} type="submit">Login</button>
+                    <button style={{
+                        height: '25px',
+                        margin: 'auto',
+                        marginTop: '14px',
+                        marginBottom: '14px',
+                        background: 'none',
+                        color: '#353535',
+                        outline: 'none',
+                        borderWidth: '0 0 2px 0',
+                        borderStyle: 'solid',
+                        borderColor: this.state.userColor,
+                        fontSize: '12px',
+                        textTransform: 'uppercase',
+                        cursor: 'pointer',
+                        padding:'1px 4px'
+                    }} type="submit">Login</button>
                 </form>
             </div>
         )

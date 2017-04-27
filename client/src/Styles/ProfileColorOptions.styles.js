@@ -18,7 +18,6 @@ const styles = {
     },
     colorName: {
         padding: '0',
-        margin: '0',
         position: 'relative',
         top: '-2px',
         fontSize: '11px',

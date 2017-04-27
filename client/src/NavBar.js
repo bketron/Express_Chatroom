@@ -1,5 +1,4 @@
 import React, {Component} from 'react'
-import { connect } from 'react-redux'
 import styles from './Styles/NavBar.styles.js'
 
 class NavBar extends Component {
@@ -32,12 +31,6 @@ class NavBar extends Component {
                 <div style={styles.divLine}></div>
             </div>
         )
-    }
-}
-
-const mapStateToProps = function (appState) {
-    return {
-        users: appState.users
     }
 }
 
