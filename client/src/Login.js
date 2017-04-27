@@ -1,87 +1,13 @@
 import React, { Component } from 'react'
-import { addUser } from './api/messaging'
-
-const styles = {
-    container: {
-        backgroundColor: '#0A2342',
-        height: '100vh',
-        padding: '250px 0 0 0'
-    },
-    form: {
-        margin: 'auto',
-        display: 'flex',
-        flexDirection: 'column',
-        backgroundColor: 'white',
-        width: '40%',
-        height: '30vh',
-        
-    },
-    usernameContainer: {
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        verticalAlign: 'middle',
-        marginTop: '30px'
-    },
-    username: {
-        fontSize: '17px',
-        color: '#535353',
-        margin: 0,
-        padding: 0,
-        lineHeight: '30px'
-    },
-    input: {
-        outline: 'none',
-        border: '1px solid #535353',
-        background: 'none',
-        fontSize: '25px',
-        height: '30px',
-        fontWeight: 'lighter',
-        color: 'black',
-        textTransform: 'lowercase',
-        textAlign: 'center',
-        width: '60%',
-        marginLeft: '20px'
-    },
-    button: {
-        width: '10vh',
-        height: '25px',
-        margin: 'auto',
-        background: 'none',
-        color: 'white',
-        outline: 'none',
-        border: '1px solid white',
-        fontSize: '12px',
-        textTransform: 'uppercase',
-        cursor: 'pointer'
-    },
-    colorButton: {
-        width: '50px',
-        height: '25px',
-        background: 'none',
-        border: '1px solid white',
-        color: 'white',
-
-    },
-    colorList: {
-        listStyleType: 'none',
-        padding: '0px',
-        display: 'flex',
-        flexDirection: 'row',
-        flexWrap: 'wrap'
-    },
-    colorChangeButton: {
-        background: 'none',
-        border: 'none',
-        outline: 'none'
-    }
-}
+import { addUser, login } from './api/messaging'
+import styles from './Styles/LoginStyles.styles.js'
 
 class Login extends Component{
     constructor(props) {
         super()
         this.state = {
-            username: ''
+            username: '',
+            userColor: 'white'
         }
     }
 
@@ -91,11 +17,19 @@ class Login extends Component{
         })
     }
 
+    handleColorSelect = (e) => {
+        var color = '#' + [e.target.name]
+
+        this.setState({
+            userColor: color
+        })
+
+    }
+
     handleSubmit = (e) => {
         e.preventDefault()
-        console.log(this.state.username)
-         addUser(this.state.username)
-
+         addUser(this.state)
+         login(this.state.username)
          this.setState({
              username: ''
          })
@@ -106,12 +40,56 @@ class Login extends Component{
     render() {
         return (
             <div style={styles.container}>
+                
                 <form style={styles.form} onSubmit={this.handleSubmit}>
+                    <p style={styles.title}>Login</p>
+
+                    <div>
+                        <ul style={styles.colorList}>
+                            <li style={styles.listItem}>
+                                <button type="button" onClick={this.handleColorSelect} name="14BDEB" style={styles.colorBlue}></button>
+                            </li>
+                            <li style={styles.listItem}>
+                                <button type="button" onClick={this.handleColorSelect} name="81F7E5" style={styles.colorAqua}></button>
+                            </li>
+                            <li style={styles.listItem}>
+                                <button type="button" onClick={this.handleColorSelect} name="436436" style={styles.colorForestGreen}></button>
+                            </li>
+                            <li style={styles.listItem}>
+                                <button type="button" onClick={this.handleColorSelect} name="7FFD7F" style={styles.colorLime}></button>
+                            </li>
+                            <li style={styles.listItem}>
+                                <button type="button" onClick={this.handleColorSelect} name="FFBE0B" style={styles.colorYellow}></button>
+                            </li>
+                            <li style={styles.listItem}>
+                                <button type="button" onClick={this.handleColorSelect} name="F17300" style={styles.colorOrange}></button>
+                            </li>
+                            <li style={styles.listItem}>
+                                <button type="button" onClick={this.handleColorSelect} name="EE4266" style={styles.colorRed}></button>
+                            </li>
+                            <li style={styles.listItem}>
+                                <button type="button" onClick={this.handleColorSelect} name="A30015" style={styles.colorDarkRed}></button>
+                            </li>
+                            <li style={styles.listItem}>
+                                <button type="button" onClick={this.handleColorSelect} name="FF63B1" style={styles.colorPink}></button>
+                            </li>
+                            <li style={styles.listItem}>
+                                <button type="button" onClick={this.handleColorSelect} name="F2BEFC" style={styles.colorLavendar}></button>
+                            </li>
+                            <li style={styles.listItem}>
+                                <button type="button" onClick={this.handleColorSelect} name="9381FF" style={styles.colorPurple}></button>
+                            </li>
+                            <li style={styles.listItem}>
+                                <button type="button" onClick={this.handleColorSelect} name="12130F" style={styles.colorDarkGrey}></button>
+                            </li>
+                        </ul>
+                    </div>
+
                     <div style={styles.usernameContainer}>
-                        <p style={styles.username}>Username</p>
                         <input style={styles.input} onChange={this.handleChange} type="text" id="loginName" name="username" value={this.state.username} placeholder="Username..." maxLength="15" autoComplete="off"/>
                     </div>
-                    <button style={styles.button} type="submit">Login</button>
+
+                    <button style={styles.loginButton} type="submit">Login</button>
                 </form>
             </div>
         )

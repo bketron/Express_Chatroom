@@ -3,6 +3,7 @@ import { addMessage } from './api/messaging'
 import { connect } from 'react-redux'
 import HeadBar from './HeadBar'
 import NavBar from './NavBar'
+import Settings from './Settings'
 
 const styles = {
     container: {
@@ -29,7 +30,7 @@ const styles = {
         backgroundColor: '#F2F2F2'
     },
     messageArea: {
-        overflow: 'hidden',
+        overflow: 'auto',
         display: 'flex',
         justifyContent: 'flex-start',
         textAlign: 'left'
@@ -47,7 +48,7 @@ const styles = {
         fontSize: '9px',
         margin: '4px 6px',
         position: 'relative',
-        top: '4px',
+        top: '3px',
         color: 'rgba(53,53,53,0.4)'
     },
     username: {
@@ -95,7 +96,9 @@ class Chat extends Component {
   constructor() {
     super()
     this.state = {
-      message: ''
+      message: '',
+      messageColor: 'black',
+      messageFont: 'sans-serif'
     }
   }
 
@@ -113,10 +116,29 @@ class Chat extends Component {
     })
   }
   
+    componentWillMount() {
+        if (this.props.username === '') {
+            this.props.history.push('/')
+        }
+    }
+
+    componentWillUpdate() {
+        var node = this.refs.messages
+        this.shouldScrollBottom = node.scrollTop + node.offsetHeight === node.scrollHeight
+    }
+
+    componentDidUpdate() {
+        if (this.shouldScrollBottom) {
+            var node = this.refs.messages
+            node.scrollTop = node.scrollHeight
+        }
+    }
+
   render() {
     return (
         <div style={styles.container}>
-                <NavBar />
+            {console.log(this.props)}
+                <NavBar user={this.props.user}/>
             <div style={styles.contentArea}>
                 <HeadBar />
 
@@ -128,15 +150,30 @@ class Chat extends Component {
                             
                         </form>
 
-                        <div style={styles.messageArea} id="messages">
+                        <div style={styles.messageArea} id="messages" ref="messages">
                             <ul style={styles.messageList}>
                                 {this.props.messages.map((message, i)=> (
                                     <li key={'message' + i}>
                                         <div style={styles.messageContents}>
-                                            <p style={styles.username}>{message.username}</p>
+                                            <p style={{
+                                                color: this.props.user.color,
+                                                margin: '0',
+                                                fontSize: '15px',
+                                                fontWeight: 'bold',
+                                                marginRight: '2px',
+                                                marginBottom: '2px'
+                                            }}>{this.props.user.username}</p>
 
                                             <div style={styles.messageData}>                             
-                                                <div className="userMessage">{message.message}</div>   
+                                                <div style={{
+                                                    color: this.state.messageColor,
+                                                    fontSize: '12px',
+                                                    textAlign: 'left',
+                                                    marginTop: '4px',
+                                                    fontFamily: this.state.messageFont,
+                                                    wordWrap: 'break-word',
+                                                    wordBreak: 'break-all'
+                                                }}>{message.message}</div>   
                                                 <div style={styles.messageTimeStamp}>{message.time}</div>
                                             </div>
                                         </div>
@@ -148,6 +185,8 @@ class Chat extends Component {
                     
                 </div>
             </div>
+
+            <Settings />
         </div>
     )
   }
@@ -155,7 +194,8 @@ class Chat extends Component {
 
 const mapStateToProps = function(appState) {
   return {
-    messages: appState.messages
+    messages: appState.messages,
+    user: appState.user
   }
 }
 

@@ -20,6 +20,7 @@ app.get("*", function(req, res){
 // })
 const users = []
 const messages = []
+var numUsers = 0
 
 io.on('connection', function(socket){
     socket.on('addMessage', function(message){
@@ -73,32 +74,12 @@ io.on('connection', function(socket){
         console.log(messages)
     })
 
-    socket.on('addUser', function(username) {
-    	var doesExist = false
-    	var existsWhere = 0
-    	for(var i=0; i<users.length; i++){
-    		if (users[i].id === socket.client.conn.id){
-    			doesExist = true
-    			existsWhere = i
-    		}
-    	}
-
-    	if(doesExist === false){
-    		users.push({
-    			id: socket.client.conn.id,
-    			username: username
-    		})
-
-    		io.emit('newUser', {
-    			id: socket.client.conn.id,
-    			username: username
-    		})
-    	} else {
-    		users[existsWhere] = {
-    			id: socket.client.conn.id,
-    			username: username
-    		}
-    	}
+    socket.on('addUser', function(user) {
+        io.emit('newUser', {
+            id: socket.client.conn.id,
+            username: user.username,
+            color: user.userColor
+        })
 
     	console.log(users)
     })
