@@ -75,6 +75,7 @@ io.on('connection', function(socket){
     })
 
     socket.on('addUser', function(user) {
+        io.emit('login', user.username )
         io.emit('newUser', {
             id: socket.client.conn.id,
             username: user.username,

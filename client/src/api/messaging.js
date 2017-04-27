@@ -32,6 +32,13 @@ socket.on('newUser', function(user){
 	})
 })
 
+socket.on('login', function(username){
+    store.dispatch({
+        type: 'LOGIN',
+        username
+    })
+})
+
 socket.on('get user', function(user){
     console.log(user)
     store.dispatch({

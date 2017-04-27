@@ -17,9 +17,9 @@ const styles = {
         fontFamily: 'Open Sans Condensed, sans-serif',
         lineHeight: '25px',
         margin: '0',
-        fontSize: '15px',
+        fontSize: '16px',
         position: 'relative',
-        top: '0px'
+        top: '1px'
     },
     sans2: {
         fontFamily: 'Josefin Sans, sans-serif',

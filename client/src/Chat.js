@@ -117,7 +117,7 @@ class Chat extends Component {
   }
   
     componentWillMount() {
-        if (this.props.username === '') {
+        if (!this.props.username) {
             this.props.history.push('/')
         }
     }
@@ -137,7 +137,7 @@ class Chat extends Component {
   render() {
     return (
         <div style={styles.container}>
-            {console.log(this.props)}
+            {console.log(this.props.user)}
                 <NavBar user={this.props.user}/>
             <div style={styles.contentArea}>
                 <HeadBar />
@@ -195,7 +195,8 @@ class Chat extends Component {
 const mapStateToProps = function(appState) {
   return {
     messages: appState.messages,
-    user: appState.user
+    user: appState.user,
+    username: appState.username
   }
 }
 

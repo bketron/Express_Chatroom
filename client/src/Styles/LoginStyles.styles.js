@@ -1,7 +1,6 @@
 const styles = {
     container: {
         backgroundColor: '#0A2342',
-        height: '100vh  ',
         padding: '250px 0 0 0'
     },
     title: {

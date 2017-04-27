@@ -5,17 +5,17 @@ import FontOptions from './FontOptions'
 
 const styles = {
     container: {
-        width: '20%',
+        width: '275px',
         height: '80.5vh',
         backgroundColor: 'white',
         color: '#353535',
         zIndex: '3',
         position: 'absolute',
-        right: '0',
+        right: '0px',
         top: '11.82%',
         border: '1px solid rgba(125,125,125,0.2)',
         boxShadow: '-5px 0px 5px rgba(125,125,125,0.1)',
-        overflowY: 'scroll'
+        overflowY: 'auto'
     },
     mainHeading: {
         padding: '0',
